@@ -1,0 +1,346 @@
+<template>
+  <div class="sideNav">
+    <div class="sidebar_top_bar">Haven</div>
+
+    <div class="sidebar_content">
+      <div class="sidebar_content_top_bar">
+        <p>Switch account</p>
+        <vue-feather type="chevron-down" size="13px" />
+      </div>
+
+      <div class="side_menu">
+        <p class="list_sect_header">Menu</p>
+        <ul>
+          <li v-for="(item, index) in menuOptions" :key="index">
+            <div class="li_icon_option">
+              <vue-feather
+                :type="`${item.icon}`"
+                size="17px"
+                v-if="
+                  item.icon !== 'list' &&
+                  item.icon !== 'home' &&
+                  item.icon !== 'settings'
+                "
+                class="option_icon"
+              />
+              <BIconSlashSquare
+                v-else-if="item.icon === 'home'"
+                class="option_icon"
+              />
+              <BIconSliders
+                v-else-if="item.icon === 'settings'"
+                class="option_icon"
+              />
+
+              <BIconPeople v-else class="option_icon option_icon_people" />
+
+              <p>{{ item.option }}</p>
+            </div>
+
+            <div class="menu_badge" v-if="item?.num !== undefined">
+              {{ item?.num }}
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="pinned_messages">
+        <p class="list_sect_header">Direct Messages</p>
+        <ul>
+          <li
+            v-for="(item, index) in UnPinnedMssgs"
+            :key="index"
+            class="user_details_li"
+          >
+            <div class="user_details">
+              <div class="user_img">
+                <img :src="item?.img" alt="" />
+              </div>
+              <div class="user_name_mail">
+                <p class="user_name">{{ item?.username }}</p>
+              </div>
+            </div>
+
+            <div class="chat_icons">
+              <BIconPinAngleFill class="chat_pin_icon" />
+              <div
+                class="chat_message_num"
+                v-if="item?.num !== undefined && item?.num !== 0"
+              >
+                {{ item?.num }}
+              </div>
+            </div>
+          </li>
+        </ul>
+
+        <div class="chats_hor_line" />
+
+        <ul>
+          <li
+            v-for="(item, index) in PinnedMssgs"
+            :key="index"
+            class="user_details_li"
+          >
+            <div class="user_details">
+              <div class="user_img">
+                <img :src="item?.img" alt="" />
+              </div>
+              <div class="user_name_mail">
+                <p class="user_name">{{ item?.username }}</p>
+              </div>
+            </div>
+
+            <div class="chat_icons">
+              <div
+                class="chat_message_num"
+                v-if="item?.num !== undefined && item?.num !== 0"
+              >
+                {{ item?.num }}
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      menuOptions: [
+        { icon: "home", option: "Home" },
+        { icon: "user", option: "Profile" },
+        { icon: "mail", option: "Messages", num: 6 },
+        { icon: "list", option: "Contacts" },
+        { icon: "settings", option: "Settings" },
+      ],
+      pinnedChat: [
+        {
+          num: 1,
+          pinned: true,
+          username: "Jaybee Cruxy",
+          img: "https://blush.design/api/download?shareUri=yjiTTUW2WH27-Kul&c=Skin_0%7Eae5d29&w=800&h=800&fm=png",
+        },
+        {
+          num: 3,
+          pinned: true,
+          username: "Amanda Harvey",
+          img: "https://blush.design/api/download?shareUri=5jy38bSLBt0MJfla&c=Skin_0%7Ed08b5b&w=800&h=800&fm=png",
+        },
+        {
+          num: 0,
+          pinned: false,
+          username: "Dean Morrison",
+          img: "https://blush.design/api/download?shareUri=0I6cFC5NGKx-CnTR&c=Skin_0%7Ed08b5b&w=800&h=800&fm=png",
+        },
+        {
+          num: 2,
+          pinned: false,
+          username: "Phillip Lewis",
+          img: "https://blush.design/api/download?shareUri=k7J-2KZEZ2Zw9JhP&c=Skin_0%7Effdbb4&bg=ddf8f6&w=800&h=800&fm=png",
+        },
+        {
+          num: 0,
+          pinned: false,
+          username: "Christine Lucas",
+          img: "https://blush.design/api/download?shareUri=4DbFWcLrY3SeBAxf&c=Skin_0%7Effdbb4&bg=9dd6a4&w=800&h=800&fm=png",
+        },
+      ],
+    };
+  },
+  computed: {
+    PinnedMssgs() {
+      return this.pinnedChat.filter((item) => !item?.pinned);
+    },
+    UnPinnedMssgs() {
+      return this.pinnedChat.filter((item) => item?.pinned);
+    },
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+.sideNav {
+  width: 290px;
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+  border-right: var(--border);
+
+  .sidebar_top_bar {
+    width: 100%;
+    height: 68px;
+    display: flex;
+    color: #444;
+    font-size: 16px;
+    align-items: center;
+    padding: 0px 41px;
+    border-bottom: var(--border);
+  }
+
+  .sidebar_content {
+    display: flex;
+    padding: 0px 25px 20px;
+    overflow: hidden;
+    flex-direction: column;
+
+    .sidebar_content_top_bar {
+      width: 100%;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      background: #fff;
+      flex-direction: row;
+      padding: 0px 16px;
+      justify-content: space-between;
+      border-bottom: var(--border);
+    }
+
+    .list_sect_header {
+      width: 100%;
+      font-size: 13px;
+      padding: 8px 16px;
+      margin-top: 20px;
+      letter-spacing: 0.01rem;
+      text-transform: uppercase;
+    }
+
+    ul {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      flex-direction: column;
+    }
+    li {
+      width: 100%;
+      display: flex;
+      border-radius: 8px;
+      padding: 10px 14px;
+      flex-direction: row;
+      align-items: center;
+      cursor: pointer;
+      overflow: hidden;
+
+      .li_icon_option {
+        flex: 1;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
+      .option_icon {
+        font-size: 15px;
+        margin-right: 12px;
+      }
+      .option_icon_people {
+        font-size: 16px;
+      }
+
+      .menu_badge {
+        width: 13px;
+        height: 13px;
+        display: flex;
+        color: #fff;
+        color: #555;
+        font-size: 10px;
+        font-weight: 800;
+        border-radius: 3px;
+        align-items: center;
+        background: #2b0fff;
+        justify-content: center;
+        border: 1px solid rgba($color: #000000, $alpha: 0.15);
+        background: #fff;
+      }
+    }
+
+    .side_menu li:nth-child(3) {
+      color: #555;
+      background: rgba($color: #000000, $alpha: 0.07);
+    }
+
+    .pinned_messages .list_sect_header {
+      margin-bottom: 5px;
+    }
+    .user_details_li {
+      padding: 7px 14px;
+    }
+    .user_details_li:hover {
+      background: rgba($color: #000000, $alpha: 0.04);
+    }
+    .user_details {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      overflow: hidden;
+    }
+    .user_img {
+      width: 30px;
+      height: 30px;
+      margin-right: 7px;
+      border-radius: 100%;
+      overflow: hidden;
+      display: flex;
+      background: rgba($color: #000000, $alpha: 0.09);
+    }
+    .user_img img {
+      width: 100%;
+      object-fit: cover;
+      object-position: top;
+      border-radius: 100%;
+    }
+
+    .user_name_mail {
+      flex: 1;
+      overflow: hidden;
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-direction: column;
+    }
+    .user_name {
+      color: #000;
+      width: 100%;
+      color: var(--color-2);
+      font-size: 13px;
+      overflow: hidden;
+      padding-right: 10px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    .user_mail {
+      font-size: 10px;
+    }
+
+    .chat_icons {
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+    }
+
+    .chat_pin_icon {
+      font-size: 10px;
+      margin-top: 2px;
+    }
+    .chat_message_num {
+      width: 12px;
+      height: 12px;
+      display: flex;
+      font-size: 10px;
+      align-items: center;
+      color: #555;
+      font-weight: 800;
+      margin-top: 2px;
+      margin-left: 9px;
+      border-radius: 2px;
+      justify-content: center;
+      background: rgba($color: #000000, $alpha: 0.1);
+    }
+
+    .chats_hor_line {
+      margin: 15px 14px 15px;
+      border-top: 1px solid rgba($color: #000000, $alpha: 0.07);
+    }
+  }
+}
+</style>
