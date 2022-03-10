@@ -62,7 +62,7 @@ nav {
   }
 
   .search_bar {
-    min-width: 500px;
+    min-width: 40%;
     padding-right: 30px;
     overflow: hidden;
 

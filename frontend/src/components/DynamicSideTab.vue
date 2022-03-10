@@ -107,7 +107,7 @@ export default {
 
 <style lang="scss" scoped>
 .dynamicSideTab {
-  width: 290px;
+  width: 340px;
   display: flex;
   position: relative;
   flex-direction: column;
@@ -293,7 +293,7 @@ export default {
 
         li {
           aspect-ratio: 1;
-          width: calc((100% / 4) - 3px);
+          width: calc((100% / 5) - 3px);
           display: flex;
           align-items: center;
           overflow: hidden;
@@ -318,6 +318,7 @@ export default {
     width: 18px;
     height: 18px;
     display: flex;
+    cursor: pointer;
     align-items: center;
     background: #fff;
     position: absolute;

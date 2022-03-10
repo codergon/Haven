@@ -82,10 +82,10 @@ export default {
 
     .main_chat_top_bar_inn {
       display: flex;
-      width: 660px;
+      max-width: 660px;
       overflow: hidden;
-      max-width: calc(100% - 60px);
       align-items: center;
+      width: calc(100% - 60px);
       justify-content: space-between;
 
       .other_user_info {
@@ -128,6 +128,7 @@ export default {
           .other_user_name {
             color: #444;
             font-size: 18px;
+            white-space: nowrap;
           }
         }
       }

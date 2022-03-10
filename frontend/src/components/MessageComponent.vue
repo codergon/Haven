@@ -2,8 +2,24 @@
   <div class="message_comp">
     <div class="message_container_inn">
       <div class="messages_cont">
-        <div class="messages_cont_inn"></div>
+        <div class="messages_cont_inn">
+          <!--  -->
+
+          <div
+            v-for="(item, index) in messages"
+            :key="index"
+            class="message_list_container"
+          >
+            <SenderMsg v-if="item?.isSender" :data="item" />
+            <ReceiverMsg v-else :data="item" />
+          </div>
+
+          <!-- <div class="scroll_down_butt">
+            <BIconArrowDown />
+          </div> -->
+        </div>
       </div>
+
       <div class="message_input_cover">
         <div class="message_input_inn">
           <div class="msg_act_butt">
@@ -28,13 +44,48 @@
 </template>
 
 <script>
-export default {};
+import SenderMsg from "@/components/SenderMsg.vue";
+import ReceiverMsg from "@/components/ReceiverMsg.vue";
+
+export default {
+  components: { SenderMsg, ReceiverMsg },
+  data() {
+    return {
+      messages: [
+        {
+          isSender: true,
+          isFile: true,
+          fileType: "image",
+          txt: "Check this guy's shot out",
+          timestamp: 1636585447000,
+          media: "https://i.postimg.cc/CKBfTF7D/image-six.jpg",
+        },
+        {
+          isSender: true,
+          isFile: false,
+          fileType: null,
+          txt: "I love you babe 🎈",
+          timestamp: 1636595447000,
+          media: null,
+        },
+        {
+          isSender: false,
+          isFile: false,
+          fileType: null,
+          txt: "Awwwwwwn🥺",
+          timestamp: 1636575447000,
+          media: null,
+        },
+      ],
+    };
+  },
+};
 </script>
 
 <style lang="scss" scoped>
 .message_comp {
-  flex: 1;
   width: 100%;
+  height: calc(100% - 75px);
   .message_container_inn {
     width: 100%;
     height: 100%;
@@ -43,17 +94,47 @@ export default {};
     flex-direction: column;
 
     .messages_cont {
-      flex: 1;
       width: 100%;
       display: flex;
-      padding: 20px 0px 0px;
-      align-items: center;
-      flex-direction: column;
+      position: relative;
+      flex-direction: row;
+      overflow: hidden scroll;
+      justify-content: center;
+      height: calc(100% - 75px);
       .messages_cont_inn {
-        width: 660px;
-        overflow: hidden;
-        max-width: calc(100% - 60px);
+        display: flex;
+        max-width: 660px;
+        position: relative;
+        padding: 20px 0px 20px;
+        flex-direction: column;
+        width: calc(100% - 60px);
+        .message_list_container {
+          padding-bottom: 20px;
+        }
       }
+      .scroll_down_butt {
+        right: 20px;
+        width: 35px;
+        height: 35px;
+        bottom: 10%;
+        display: flex;
+        color: #555;
+        cursor: pointer;
+        align-items: center;
+        border: var(--border-3);
+        border-radius: 100%;
+        position: absolute;
+        background: #fff;
+        justify-content: center;
+      }
+    }
+    .messages_cont::-webkit-scrollbar {
+      width: 7px;
+      background: transparent;
+    }
+    .messages_cont::-webkit-scrollbar-thumb {
+      border-radius: 8px;
+      background: rgba($color: #000000, $alpha: 0.16);
     }
     .message_input_cover {
       width: 100%;
@@ -65,14 +146,15 @@ export default {};
       justify-content: center;
       border-top: var(--border);
       .message_input_inn {
-        width: 660px;
-        display: flex;
         height: 100%;
+        display: flex;
         overflow: hidden;
-        max-width: calc(100% - 60px);
+        max-width: 660px;
         padding: 5px 0px;
         align-items: center;
         flex-direction: row;
+        width: calc(100% - 60px);
+
         .msg_act_butt,
         .msg_act_butt_1,
         .msg_act_butt_2 {

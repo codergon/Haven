@@ -19,6 +19,7 @@ export default {
 main {
   flex: 1;
   display: flex;
+  overflow: hidden;
   flex-direction: column;
   background: rgba(0, 0, 0, $alpha: 0.07);
   background: #fff;
