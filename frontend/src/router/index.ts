@@ -1,16 +1,32 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
-import Chats from "@/views/Chats.vue";
+import MainApp from "@/views/MainApp.vue";
+import Welcome from "@/views/Welcome.vue";
+
+import Login from "@/views/Auth/Login.vue";
+import Register from "@/views/Auth/Register.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
-    name: "chat",
-    component: Chats,
+    name: "home",
+    component: Welcome,
   },
   {
-    path: "/chats",
-    name: "chats",
-    component: Chats,
+    path: "/app/",
+    name: "main app",
+    component: MainApp,
+  },
+
+  // Authentication Screens
+  {
+    path: "/auth/login",
+    name: "Login page",
+    component: Login,
+  },
+  {
+    path: "/auth/register",
+    name: "SignUp page",
+    component: Register,
   },
   // {
   // path: "/about",

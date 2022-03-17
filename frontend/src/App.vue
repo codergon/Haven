@@ -1,8 +1,5 @@
 <template>
-  <div class="container">
-    <SideTab />
-    <MainApp />
-  </div>
+  <router-view />
 </template>
 
 <script lang="ts">
@@ -38,15 +35,43 @@ body {
   box-sizing: border-box;
 }
 
+@font-face {
+  font-family: "euclid1";
+  src: url("./static/fonts/EuclidCircularA-Regular.woff") format("woff");
+}
+
+@font-face {
+  font-family: "euclid2";
+  src: url("./static/fonts/EuclidCircularA-Medium.woff") format("woff");
+}
+@font-face {
+  font-family: "euclid3";
+  src: url("./static/fonts/EuclidCircularA-Semibold.woff") format("woff");
+}
+@font-face {
+  font-family: "machina";
+  src: url("./static/fonts/NeueMachina-Light.otf");
+}
+@font-face {
+  font-family: "machina2";
+  src: url("./static/fonts/NeueMachina-Regular.woff") format("woff");
+}
+
 p,
+a,
 li,
 ul,
+button,
 input {
   margin: 0;
   padding: 0;
+  border: none;
+  color: inherit;
   list-style: none;
+  text-decoration: none;
   background: transparent;
 }
+button:focus,
 input:focus,
 input:active {
   margin: 0;
@@ -70,16 +95,10 @@ input:active {
   height: 100%;
   color: var(--def-color);
   font-size: 14px;
-  font-weight: 700;
+  // font-weight: 700;
   font-family: "Nunito";
+  font-family: euclid1;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
-}
-
-.container {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: row;
 }
 </style>
