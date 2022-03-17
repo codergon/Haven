@@ -186,7 +186,7 @@ footer {
     padding: 8vh 0px 30px !important;
 
     .footer_cont {
-      width: 90%;
+      width: 86%;
       flex-direction: column;
       justify-content: flex-start;
       .first_sect,
@@ -233,7 +233,7 @@ footer {
     }
     .developed_by_sect {
       font-size: 12px !important;
-      width: 90% !important;
+      width: 86% !important;
       margin-bottom: 0vh !important;
       p {
         line-height: 20px;

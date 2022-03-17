@@ -108,7 +108,7 @@ export default {
 
   @media screen and (max-width: 850px) {
     .first_section {
-      width: 90vw !important;
+      width: 86vw !important;
       padding: 15vh 0vh 10vh;
       height: max-content;
       overflow: hidden;

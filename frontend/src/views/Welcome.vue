@@ -148,7 +148,7 @@ $s_br: 900px;
     min-height: 80vh;
 
     .first_section {
-      width: 90vw;
+      width: 86vw;
       padding: 15vh 0vh 10vh;
       height: max-content;
       overflow: hidden;

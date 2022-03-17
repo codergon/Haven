@@ -73,7 +73,7 @@ nav {
 
   @media screen and (max-width: 850px) {
     .nav_bar {
-      padding: 0px 5vw !important;
+      padding: 0px 7vw !important;
     }
     .logo {
       font-size: 14px;
