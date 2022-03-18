@@ -17,35 +17,47 @@
             <div class="real_form">
               <div class="input_container">
                 <input
-                  type="text"
+                  type="email"
+                  v-model="email"
                   placeholder="Email Address"
                   class="input_tag"
                 />
+                <p class="incorrectDetails" v-if="!rightEmail">
+                  <BIconXCircle /> Invalid email address supplied
+                </p>
               </div>
               <div class="input_container">
-                <input type="text" placeholder="Full Name" class="input_tag" />
-              </div>
-              <div class="input_container">
-                <input type="text" placeholder="Username" class="input_tag" />
+                <input
+                  type="text"
+                  placeholder="Username"
+                  v-model="username"
+                  class="input_tag"
+                />
+                <p class="incorrectDetails" v-if="!rightUsername">
+                  <BIconXCircle /> Username must be at least 4 characters
+                </p>
               </div>
               <div class="input_container">
                 <input
                   type="password"
+                  v-model="password"
                   placeholder="Password"
                   class="input_tag"
                 />
+                <p class="incorrectDetails" v-if="!rightPassword">
+                  <BIconXCircle /> Password must contain lowercase, uppercase
+                  letters & digits without spaces.
+                </p>
               </div>
 
               <div class="rem_container">
-                <input
-                  type="checkbox"
-                  placeholder="Password"
-                  class="remember_input"
-                />
+                <input type="checkbox" class="remember_input" />
                 <p class="input_label">Remember me</p>
               </div>
 
-              <button class="submit_butt">Create new account</button>
+              <button class="submit_butt" @click="submitDetails">
+                Create new account
+              </button>
             </div>
 
             <div class="other_act">
@@ -68,13 +80,88 @@
 </template>
 
 <script>
+import axios from "axios";
 import Footer from "@/components/Footer.vue";
+import * as EmailValidator from "email-validator";
+import * as PasswordValidator from "password-validator";
 import LandingNavbar from "@/components/LandingNavbar.vue";
 
 export default {
   components: {
     Footer,
     LandingNavbar,
+  },
+  data() {
+    return {
+      email: "",
+      username: "",
+      password: "",
+      rightEmail: true,
+      rightUsername: true,
+      rightPassword: true,
+    };
+  },
+  methods: {
+    async submitDetails() {
+      const data = {
+        email: this.email,
+        username: this.username,
+        password: this.password,
+      };
+      var PassValidator = new PasswordValidator();
+      var UsernameValidator = new PasswordValidator();
+      PassValidator.is()
+        .min(8)
+        .is()
+        .max(15)
+        .has()
+        .uppercase()
+        .has()
+        .lowercase()
+        .has()
+        .digits(1)
+        .has()
+        .not()
+        .spaces()
+        .is()
+        .not()
+        .oneOf(["Passw0rd", "Password123"]);
+      UsernameValidator.is().min(4).is().max(15).has().not().spaces();
+
+      if (!data?.email && !data?.username && !data?.password) {
+        return;
+      }
+
+      if (EmailValidator.validate(data?.email)) {
+        this.rightEmail = true;
+      } else {
+        this.rightEmail = false;
+      }
+
+      if (UsernameValidator.validate(data?.username)) {
+        this.rightUsername = true;
+      } else {
+        this.rightUsername = false;
+      }
+
+      if (PassValidator.validate(data?.password)) {
+        this.rightPassword = true;
+      } else {
+        this.rightPassword = false;
+      }
+
+      if (
+        EmailValidator.validate(data?.email) &&
+        UsernameValidator.validate(data?.username) &&
+        PassValidator.validate(data?.password)
+      ) {
+        await axios.post("register", data).then((res) => {
+          console.log(res);
+        });
+      } else {
+        return;
+      }
+    },
   },
 };
 </script>
@@ -174,6 +261,17 @@ export default {
           .input_container {
             width: 100%;
             margin-bottom: 20px;
+
+            .incorrectDetails {
+              font-size: 10px;
+              margin-top: 10px;
+              color: #4a4aff;
+              svg {
+                margin-right: 2px;
+                margin-bottom: -2px;
+              }
+            }
+
             .input_label {
               color: #000;
               margin-bottom: 12px;
@@ -201,8 +299,10 @@ export default {
             }
             .input_tag {
               width: 100%;
+              color: #000;
               border-radius: 5px;
               padding: 14px 20px;
+              letter-spacing: 0.04rem;
               border: 1px solid #dfdfdf;
             }
           }
