@@ -155,9 +155,12 @@ export default {
         UsernameValidator.validate(data?.username) &&
         PassValidator.validate(data?.password)
       ) {
-        await axios.post("register", data).then((res) => {
-          console.log(res);
-        });
+        await axios
+          .post("register", data)
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => console.log(err));
       } else {
         return;
       }
