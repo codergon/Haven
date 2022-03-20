@@ -58,6 +58,19 @@
               <button class="submit_butt" @click="submitDetails">
                 Create new account
               </button>
+
+              <div class="loading_cont" v-if="loading">
+                <ClipLoader
+                  :loading="loading"
+                  color="#888"
+                  size="22px"
+                  v-if="!errorMessage"
+                />
+                <div class="err_msg_cont" v-else>
+                  <p>{{ errorMessage }}</p>
+                  <button @click="closeErrorModal">Close</button>
+                </div>
+              </div>
             </div>
 
             <div class="other_act">
@@ -85,10 +98,12 @@ import Footer from "@/components/Footer.vue";
 import * as EmailValidator from "email-validator";
 import * as PasswordValidator from "password-validator";
 import LandingNavbar from "@/components/LandingNavbar.vue";
+import ClipLoader from "vue-spinner/src/ClipLoader.vue";
 
 export default {
   components: {
     Footer,
+    ClipLoader,
     LandingNavbar,
   },
   data() {
@@ -96,13 +111,21 @@ export default {
       email: "",
       username: "",
       password: "",
+      loading: false,
+      errorMessage: "",
       rightEmail: true,
       rightUsername: true,
       rightPassword: true,
     };
   },
   methods: {
+    closeErrorModal() {
+      this.errorMessage = "";
+      this.loading = false;
+    },
     async submitDetails() {
+      this.loading = true;
+
       const data = {
         email: this.email,
         username: this.username,
@@ -129,6 +152,7 @@ export default {
       UsernameValidator.is().min(4).is().max(15).has().not().spaces();
 
       if (!data?.email && !data?.username && !data?.password) {
+        this.loading = false;
         return;
       }
 
@@ -158,10 +182,18 @@ export default {
         await axios
           .post("register", data)
           .then((res) => {
-            console.log(res);
+            console.log(res.data);
+            this.loading = false;
           })
-          .catch((err) => console.log(err));
+          .catch((err) => {
+            if (!err?.response?.data?.message) {
+              this.errorMessage = "There was an error creating an account";
+            } else {
+              this.errorMessage = err?.response?.data?.message;
+            }
+          });
       } else {
+        this.loading = false;
         return;
       }
     },
@@ -209,6 +241,10 @@ export default {
         width: 100% !important;
         .auth_form_inn {
           width: 100% !important;
+        }
+
+        .loading_cont {
+          padding-bottom: 15% !important;
         }
       }
     }
@@ -261,6 +297,8 @@ export default {
         }
 
         .real_form {
+          position: relative;
+
           .input_container {
             width: 100%;
             margin-bottom: 20px;
@@ -333,6 +371,43 @@ export default {
             background: #000;
             border-radius: 5px;
             cursor: pointer;
+          }
+
+          .loading_cont {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            position: absolute;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding-bottom: 28%;
+            background: rgba($color: #fff, $alpha: 0.7);
+
+            .err_msg_cont {
+              display: flex;
+              width: 100%;
+              color: #fff;
+              line-height: 142%;
+              padding: 25px 25px;
+              background: #000;
+              border-radius: 7px;
+              border: var(--border);
+              font-family: machina;
+              font-weight: 700;
+              align-items: center;
+
+              button {
+                width: 100%;
+                color: #000;
+                cursor: pointer;
+                padding: 10px 0px;
+                margin-top: 15px;
+                font-weight: 700;
+                font-family: machina;
+                background: #fff;
+              }
+            }
           }
         }
 
