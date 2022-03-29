@@ -45,8 +45,8 @@
 </template>
 
 <script>
-import DynamicSideTab from "@/components/DynamicSideTab.vue";
-import MessageComponent from "@/components/MessageComponent.vue";
+import DynamicSideTab from "./DynamicSideTab.vue";
+import MessageComponent from "./MessageComponent.vue";
 
 export default {
   name: "Chats",
@@ -72,7 +72,7 @@ export default {
 
   .main_chat_top_bar {
     width: 100%;
-    height: 70px;
+    height: var(--nav-height);
     display: flex;
     align-items: center;
     background: #fff;
@@ -129,6 +129,7 @@ export default {
             color: #444;
             font-size: 18px;
             white-space: nowrap;
+            font-family: machina2;
           }
         }
       }

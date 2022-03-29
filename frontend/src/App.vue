@@ -1,17 +1,45 @@
 <template>
+  <Loading v-if="loading" />
   <router-view />
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import MainApp from "./views/MainApp.vue";
-import SideTab from "@/components/SideTab.vue";
+import Loading from "@/components/Loading.vue";
+import axios from "axios";
+import { useStore } from "vuex";
 
 export default defineComponent({
   name: "App",
   components: {
     MainApp,
-    SideTab,
+    Loading,
+  },
+  setup() {
+    const store = useStore();
+
+    return {
+      store,
+    };
+  },
+  data() {
+    return {
+      user: null,
+      loading: true,
+    };
+  },
+  async created() {
+    await axios
+      .get("user/auth")
+      .then((res) => {
+        this.user = res?.data?.userData;
+        this.store.dispatch("user", res?.data?.userData);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => (this.loading = false));
   },
 });
 </script>
@@ -85,6 +113,12 @@ input:active {
   --def-color: #8a8c8f;
   --color-2: #7c7e82;
 
+  --nav-height: 70px;
+
+  --color-3: #dfdfdf;
+
+  // --border: 1px solid #444;
+
   --border: 1px solid #dfdfdf;
   --border-2: 1px solid #b9b9b9;
   --border-3: 1px solid #a2a2a2;
@@ -98,6 +132,7 @@ input:active {
   // font-weight: 700;
   font-family: "Nunito";
   font-family: euclid1;
+  // background: #0e0e0e;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
 }

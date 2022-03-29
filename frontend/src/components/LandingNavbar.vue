@@ -4,12 +4,13 @@
       <div class="logo">Haven</div>
 
       <div class="nav_links_theme">
-        <div class="nav_links">
+        <div class="nav_links" v-if="isLoggedIn">
+          <div class="logout" @click="logOut">Sign Out</div>
+        </div>
+
+        <div class="nav_links" v-else>
           <router-link to="/auth/login">Sign In</router-link>
           <router-link to="/auth/register">Sign Up</router-link>
-          <router-link to="/auth/features" class="features_link"
-            >Features</router-link
-          >
         </div>
       </div>
     </div>
@@ -17,7 +18,22 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {};
+  },
+  methods: {
+    logOut() {
+      localStorage.removeItem("token");
+      this.$router.go("/");
+    },
+  },
+  computed: {
+    isLoggedIn: function () {
+      return this.$store.getters.isAuthenticated;
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -60,12 +76,20 @@ nav {
       display: flex;
       flex-direction: row;
       a {
-        padding: 4px 15px;
+        padding: 6px 15px;
         margin-right: 10px;
         border-radius: 5px;
       }
       a:nth-child(2) {
         color: #fff;
+        background: #222;
+      }
+      .logout {
+        color: #fff;
+        cursor: pointer;
+        padding: 6px 15px;
+        margin-right: 10px;
+        border-radius: 5px;
         background: #222;
       }
     }
@@ -81,11 +105,12 @@ nav {
     .nav_links {
       font-size: 12px;
       a {
-        padding: 4px 6px !important;
-        margin-right: 6px !important;
+        padding: 5px 10px !important;
+        margin-right: 8px !important;
       }
-      .features_link {
-        display: none;
+      .logout {
+        padding: 5px 10px !important;
+        margin-right: 8px !important;
       }
     }
   }

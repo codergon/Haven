@@ -11,7 +11,12 @@
       <div class="side_menu">
         <p class="list_sect_header">Menu</p>
         <ul>
-          <li v-for="(item, index) in menuOptions" :key="index">
+          <router-link
+            v-for="(item, index) in menuOptions"
+            :key="index"
+            :to="item?.path"
+            v-bind:class="{ active_page: this.$route.path == item?.path }"
+          >
             <div class="li_icon_option">
               <vue-feather
                 :type="`${item.icon}`"
@@ -40,7 +45,7 @@
             <div class="menu_badge" v-if="item?.num !== undefined">
               {{ item?.num }}
             </div>
-          </li>
+          </router-link>
         </ul>
       </div>
 
@@ -106,15 +111,17 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data() {
     return {
       menuOptions: [
-        { icon: "home", option: "Home" },
-        { icon: "user", option: "Profile" },
-        { icon: "mail", option: "Messages", num: 6 },
-        { icon: "list", option: "Contacts" },
-        { icon: "settings", option: "Settings" },
+        { icon: "home", option: "Home", path: "/" },
+        { icon: "user", option: "Profile", path: "/profile" },
+        { icon: "mail", option: "Messages", num: 6, path: "/direct/inbox" },
+        { icon: "list", option: "Contacts", path: "/contacts/" },
+        { icon: "settings", option: "Settings", path: "/settings/" },
       ],
       pinnedChat: [
         {
@@ -188,10 +195,9 @@ export default {
 
     .sidebar_content_top_bar {
       width: 100%;
-      height: 70px;
+      height: var(--nav-height);
       display: flex;
       align-items: center;
-      background: #fff;
       flex-direction: row;
       padding: 0px 16px;
       justify-content: space-between;
@@ -213,7 +219,8 @@ export default {
       align-items: center;
       flex-direction: column;
     }
-    li {
+    li,
+    a {
       width: 100%;
       display: flex;
       border-radius: 8px;
@@ -222,6 +229,8 @@ export default {
       align-items: center;
       cursor: pointer;
       overflow: hidden;
+      letter-spacing: 0.05em;
+      font-family: machina2;
 
       .li_icon_option {
         flex: 1;
@@ -239,24 +248,31 @@ export default {
 
       .menu_badge {
         width: 13px;
-        height: 13px;
+        height: 15px;
         display: flex;
         color: #fff;
         color: #555;
         font-size: 10px;
         font-weight: 800;
+        padding-top: 2px;
         border-radius: 3px;
         align-items: center;
-        background: #2b0fff;
         justify-content: center;
         border: 1px solid rgba($color: #000000, $alpha: 0.15);
-        background: #fff;
       }
     }
 
-    .side_menu li:nth-child(3) {
+    .side_menu a {
+      margin-bottom: 10px;
+    }
+
+    .side_menu .active_page {
+      color: #000;
+      background: rgba($color: #000000, $alpha: 0.05);
+    }
+    .side_menu a:hover {
       color: #555;
-      background: rgba($color: #000000, $alpha: 0.07);
+      background: rgba($color: #000000, $alpha: 0.05);
     }
 
     .pinned_messages .list_sect_header {
@@ -323,14 +339,15 @@ export default {
       margin-top: 2px;
     }
     .chat_message_num {
-      width: 12px;
-      height: 12px;
+      width: 13px;
+      height: 15px;
       display: flex;
       font-size: 10px;
+      padding-top: 2px;
       align-items: center;
       color: #555;
       font-weight: 800;
-      margin-top: 2px;
+      margin-top: 3px;
       margin-left: 9px;
       border-radius: 2px;
       justify-content: center;

@@ -52,6 +52,19 @@
               <button class="submit_butt" @click="submitDetails">
                 Log in to your account
               </button>
+
+              <div class="loading_cont" v-if="loading">
+                <ClipLoader
+                  :loading="loading"
+                  color="#888"
+                  size="22px"
+                  v-if="!errorMessage"
+                />
+                <div class="err_msg_cont" v-else>
+                  <p>{{ errorMessage }}</p>
+                  <button @click="closeErrorModal">Close</button>
+                </div>
+              </div>
             </div>
 
             <div class="other_act">
@@ -77,24 +90,34 @@
 import axios from "axios";
 import Footer from "@/components/Footer.vue";
 import * as EmailValidator from "email-validator";
+import ClipLoader from "vue-spinner/src/ClipLoader.vue";
 import * as PasswordValidator from "password-validator";
 import LandingNavbar from "@/components/LandingNavbar.vue";
 
 export default {
   components: {
     Footer,
+    ClipLoader,
     LandingNavbar,
   },
   data() {
     return {
       email: "",
       password: "",
+      loading: false,
       rightEmail: true,
+      errorMessage: "",
       rightPassword: true,
     };
   },
   methods: {
+    closeErrorModal() {
+      this.errorMessage = "";
+      this.loading = false;
+    },
     async submitDetails() {
+      this.loading = true;
+
       const data = {
         email: this.email,
         password: this.password,
@@ -118,6 +141,7 @@ export default {
         .oneOf(["Passw0rd", "Password123"]);
 
       if (!data?.email && !data?.password) {
+        this.loading = false;
         return;
       }
 
@@ -137,11 +161,23 @@ export default {
         EmailValidator.validate(data?.email) &&
         PassValidator.validate(data?.password)
       ) {
-        await axios.post("login", data).then((res) => {
-          console.log(res?.data);
-          localStorage.setItem("token", res?.data?.token);
-        });
+        await axios
+          .post("login", data)
+          .then((res) => {
+            this.loading = false;
+            localStorage.setItem("token", res?.data?.token);
+            this.$router.go("/");
+          })
+          .catch((err) => {
+            if (!err?.response?.data?.message) {
+              this.errorMessage =
+                "It's not your fault but an error occured while retrieving your account 🥲 Please try again";
+            } else {
+              this.errorMessage = err?.response?.data?.message;
+            }
+          });
       } else {
+        this.loading = false;
         return;
       }
     },
@@ -189,6 +225,10 @@ export default {
         padding-left: 0px !important;
         .auth_form_inn {
           width: 100% !important;
+        }
+
+        .loading_cont {
+          padding-bottom: 15% !important;
         }
       }
     }
@@ -240,6 +280,8 @@ export default {
         }
 
         .real_form {
+          position: relative;
+
           .input_container {
             width: 100%;
             margin-bottom: 20px;
@@ -312,6 +354,43 @@ export default {
             background: #000;
             border-radius: 5px;
             cursor: pointer;
+          }
+
+          .loading_cont {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            position: absolute;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding-bottom: 28%;
+            background: rgba($color: #fff, $alpha: 0.7);
+
+            .err_msg_cont {
+              display: flex;
+              width: 100%;
+              color: #fff;
+              line-height: 142%;
+              padding: 25px 25px;
+              background: #000;
+              border-radius: 7px;
+              border: var(--border);
+              font-family: machina;
+              font-weight: 700;
+              align-items: center;
+
+              button {
+                width: 100%;
+                color: #000;
+                cursor: pointer;
+                padding: 10px 0px;
+                margin-top: 15px;
+                font-weight: 700;
+                font-family: machina;
+                background: #fff;
+              }
+            }
           }
         }
 

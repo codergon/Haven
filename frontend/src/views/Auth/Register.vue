@@ -96,9 +96,9 @@
 import axios from "axios";
 import Footer from "@/components/Footer.vue";
 import * as EmailValidator from "email-validator";
+import ClipLoader from "vue-spinner/src/ClipLoader.vue";
 import * as PasswordValidator from "password-validator";
 import LandingNavbar from "@/components/LandingNavbar.vue";
-import ClipLoader from "vue-spinner/src/ClipLoader.vue";
 
 export default {
   components: {
@@ -182,8 +182,8 @@ export default {
         await axios
           .post("register", data)
           .then((res) => {
-            console.log(res.data);
             this.loading = false;
+            this.$router.push("/auth/login");
           })
           .catch((err) => {
             if (!err?.response?.data?.message) {

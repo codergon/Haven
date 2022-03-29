@@ -84,6 +84,7 @@ export default {
     .textContainer {
       width: 100%;
       overflow: hidden;
+      font-weight: 400;
       padding: 15px 15px 10px;
       overflow-wrap: break-word;
 
@@ -91,7 +92,7 @@ export default {
         color: #999;
         margin-top: 2px;
         font-size: 10px;
-        font-weight: 800;
+        font-weight: 500;
         text-align: end;
         text-transform: uppercase;
       }

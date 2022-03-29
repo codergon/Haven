@@ -44,8 +44,8 @@
 </template>
 
 <script>
-import SenderMsg from "@/components/SenderMsg.vue";
-import ReceiverMsg from "@/components/ReceiverMsg.vue";
+import SenderMsg from "./SenderMsg.vue";
+import ReceiverMsg from "./ReceiverMsg.vue";
 
 export default {
   components: { SenderMsg, ReceiverMsg },
@@ -56,7 +56,7 @@ export default {
           isSender: true,
           isFile: true,
           fileType: "image",
-          txt: "Check this guy's shot out",
+          txt: "Check out this guy's shot",
           timestamp: 1636585447000,
           media: "https://i.postimg.cc/CKBfTF7D/image-six.jpg",
         },
@@ -64,7 +64,7 @@ export default {
           isSender: true,
           isFile: false,
           fileType: null,
-          txt: "I love you babe 🎈",
+          txt: "Isn't it fire?",
           timestamp: 1636595447000,
           media: null,
         },
@@ -72,7 +72,7 @@ export default {
           isSender: false,
           isFile: false,
           fileType: null,
-          txt: "Awwwwwwn🥺",
+          txt: "It is. Wow! 👏👏",
           timestamp: 1636575447000,
           media: null,
         },

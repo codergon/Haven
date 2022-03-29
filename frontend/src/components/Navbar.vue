@@ -26,13 +26,13 @@
         <div class="user_details">
           <div class="user_img">
             <img
-              src="https://blush.design/api/download?shareUri=yjiTTUW2WH27-Kul&c=Skin_0%7Eae5d29&w=800&h=800&fm=png"
+              src="https://blush.design/api/download?shareUri=0I6cFC5NGKx-CnTR&c=Skin_0%7Ed08b5b&w=800&h=800&fm=png"
               alt=""
             />
           </div>
           <div class="user_name_mail">
-            <p class="user_name">Atakere Williams</p>
-            <p class="user_mail">alphaglitch@gmail.com</p>
+            <p class="user_name">{{ user?.username }}</p>
+            <p class="user_mail">{{ user?.email }}</p>
           </div>
         </div>
       </div>
@@ -41,7 +41,13 @@
 </template>
 
 <script>
-export default {};
+export default {
+  computed: {
+    user: function () {
+      return this.$store.getters.user;
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -49,7 +55,6 @@ nav {
   height: 68px;
   width: 100%;
   display: flex;
-  background: #fff;
   flex-direction: row;
   border-bottom: var(--border);
   .nav_bar {
