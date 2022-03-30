@@ -1,7 +1,7 @@
 <template>
   <div class="home_nav">
     <div class="nav_title">
-      <p>Connect with beautiful people</p>
+      <p>View friends and requests here</p>
     </div>
 
     <div class="nav_tweaks">
@@ -10,7 +10,7 @@
           <p>Sort by</p>
           <span class="filter_icon"><BIconArrowDownUp /></span>
           <span class="semi_colon">:</span>
-          <span class="current">Most Recent</span>
+          <span class="current">Friends</span>
           <span class="filter_icon"><BIconCaretDownFill /></span>
         </div>
       </div>

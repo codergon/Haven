@@ -14,7 +14,7 @@
       </div>
 
       <div :class="listType === 'grid' ? 'follow_butt' : 'follow_butt_list'">
-        <button>Follow</button>
+        <button>Message</button>
       </div>
     </div>
 
@@ -231,8 +231,8 @@ export default {
   }
 }
 .userCard_list {
-  margin: 5px 18px 15px 5px;
+  margin: 5px 12px 12px 5px;
   height: max-content !important;
-  width: calc((100% / 4) - 10px);
+  width: calc((100% / 4) - 17px);
 }
 </style>

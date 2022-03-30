@@ -3,15 +3,17 @@
     <HomeNav />
     <!--  -->
 
-    <div class="users_container">
+    <div
+      :class="listType === 'grid' ? 'users_container' : 'users_container_list'"
+    >
       <div class="users_container_inn">
         <UserCard
           v-for="(item, index) in allUsers"
           :key="index"
           :userData="item"
-          :bio="!!bios[index] ? bios[index] : ''"
-          :location="!!location[index] ? location[index] : 'Earth'"
-          :avatar="avatars[index]"
+          :bio="bios[Math.floor(Math.random() * bios.length)]"
+          :locations="locations[Math.floor(Math.random() * locations.length)]"
+          :avatar="avatars[Math.floor(Math.random() * avatars.length)]"
         />
       </div>
     </div>
@@ -43,7 +45,7 @@ export default {
         "💼 Community Manager at @hashnode ⛓ #web3 enthusiast 💻 Developer | UXer 🎤 Public Speaker 📢 Youtuber",
         "Crazy world out there !!!",
       ],
-      location: ["São Paulo", "Your Mind", "Lagos", "New York", "Nowhere"],
+      locations: ["São Paulo", "Your Mind", "Lagos", "New York", "Nowhere"],
       avatars: [
         "https://blush.design/api/download?shareUri=yjiTTUW2WH27-Kul&c=Skin_0%7Eae5d29&w=800&h=800&fm=png",
         "https://blush.design/api/download?shareUri=5jy38bSLBt0MJfla&c=Skin_0%7Ed08b5b&w=800&h=800&fm=png",
@@ -63,13 +65,20 @@ export default {
       await axios
         .get("user/allUsers")
         .then((res) => {
-          this.allUsers = res?.data?.allusers
-            ?.filter((item) => item.email !== this.store.state.user.email)
-            .slice(0, 5);
+          this.allUsers = res?.data?.allusers?.filter(
+            (item) => item.email !== this.store.state.user.email
+          );
+          // .slice(0, 5);
         })
         .catch((err) => {
           console.log(err);
         });
+    },
+  },
+
+  computed: {
+    listType: function () {
+      return this.store.state.listType;
     },
   },
 
@@ -89,7 +98,8 @@ export default {
   padding: 0px 30px;
   flex-direction: column;
 
-  .users_container {
+  .users_container,
+  .users_container_list {
     width: 100%;
     height: calc(100% - var(--nav-height));
     display: flex;
@@ -101,8 +111,18 @@ export default {
       width: 100%;
       display: flex;
       flex-wrap: wrap;
-      padding: 0px 5px 50px 0px;
       flex-direction: row;
+      padding: 0px 5px 50px 0px;
+    }
+  }
+  .users_container_list {
+    padding: 20px 5px 0px;
+
+    .users_container_inn {
+      height: 100%;
+      flex-direction: column;
+      align-content: flex-start;
+      padding: 0px 5px 30px 0px;
     }
   }
 }
