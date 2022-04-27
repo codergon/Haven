@@ -8,16 +8,9 @@
 
       <div class="settings">
         <div class="theme_notification">
-          <div class="theme_butt">
-            <div class="theme_active"></div>
-            <div class="theme_icons">
-              <div class="theme_icon_cover theme_icon_cover_active">
-                <vue-feather type="sun" size="12px" class="bell_icon" />
-              </div>
-              <div class="theme_icon_cover">
-                <vue-feather type="moon" size="12px" class="bell_icon" />
-              </div>
-            </div>
+          <div class="theme_butt" @click="ToggleDarkTheme()">
+            <i class="ph-sun" v-if="darkTheme" />
+            <i class="ph-moon" v-else />
           </div>
           <div class="notification_butt">
             <vue-feather type="bell" size="16px" class="bell_icon" />
@@ -41,10 +34,23 @@
 </template>
 
 <script>
+import { useStore } from "vuex";
 export default {
+  setup() {
+    const store = useStore();
+
+    return {
+      store,
+    };
+  },
   computed: {
-    user: function () {
-      return this.$store.getters.user;
+    darkTheme: function () {
+      return this.store.state.darkTheme;
+    },
+  },
+  methods: {
+    ToggleDarkTheme() {
+      this.store.dispatch("setTheme", this.store.state.darkTheme);
     },
   },
 };
@@ -85,7 +91,7 @@ nav {
       }
     }
     input::placeholder {
-      color: #999;
+      color: var(--color-4);
     }
   }
 
@@ -96,39 +102,20 @@ nav {
   }
 
   .theme_butt {
-    width: 55px;
-    height: 23px;
-    padding: 3px;
-    margin-right: 18px;
-    border-radius: 20px;
-    position: relative;
-    background: rgba(0, 0, 0, $alpha: 0.07);
-  }
-  .theme_icons {
-    left: 3px;
-    position: absolute;
-    width: calc(100% - 6px);
-    height: calc(100% - 6px);
-    justify-content: space-around;
-  }
-  .theme_icon_cover {
-    width: 50%;
+    width: 30px;
+    height: 30px;
     cursor: pointer;
+    margin-right: 18px;
+    border-radius: 4px;
+    align-items: center;
+    color: var(--color-2);
+    background: var(--bg-3);
     justify-content: center;
-  }
-  .theme_active {
-    width: 50%;
-    height: 100%;
-    border-radius: 18px;
-    background: #fff;
-  }
-  .theme_icon_cover_active {
-    color: #000;
   }
 
   .user_details {
     padding: 0px 20px;
-    border-left: 1px solid #dadada;
+    border-left: var(--border);
   }
   .user_img {
     width: 30px;
@@ -154,10 +141,11 @@ nav {
     flex-direction: column;
   }
   .user_name {
-    color: #555;
+    color: var(--color-2);
     font-size: 13px;
   }
   .user_mail {
+    color: var(--color-4);
     font-size: 10px;
   }
 }

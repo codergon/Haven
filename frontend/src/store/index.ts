@@ -36,7 +36,7 @@ export default createStore({
       context.commit("setListType", type);
     },
     setTheme(context, state) {
-      context.commit("setTheme", !state.darkTheme);
+      context.commit("setTheme", !state);
     },
   },
   plugins: [createPersistedState()],

@@ -1,11 +1,10 @@
 <template>
   <Loading v-if="loading" />
-  <router-view />
+  <router-view :darkTheme="darkTheme" />
 </template>
 
-<script lang="ts">
+<script>
 import { defineComponent } from "vue";
-import MainApp from "./views/MainApp.vue";
 import Loading from "@/components/Loading.vue";
 import axios from "axios";
 import { useStore } from "vuex";
@@ -13,7 +12,6 @@ import { useStore } from "vuex";
 export default defineComponent({
   name: "App",
   components: {
-    MainApp,
     Loading,
   },
   setup() {
@@ -22,6 +20,11 @@ export default defineComponent({
     return {
       store,
     };
+  },
+  computed: {
+    darkTheme: function () {
+      return this.store.state.darkTheme;
+    },
   },
   data() {
     return {
@@ -56,7 +59,8 @@ body {
 body {
   width: 100vw;
   height: 100vh;
-  // background: #333;
+  // background: #111;
+  overscroll-behavior: none;
 }
 
 * {
@@ -110,30 +114,37 @@ input:active {
 }
 
 :root {
-  --def-color: #8a8c8f;
-  --color-2: #7c7e82;
+  // // Dimensions
+  // --nav-height: 70px;
+  // --sidebar-left: 290px;
+  // --sidebar-right: 300px;
 
-  --nav-height: 70px;
+  // // Colors
+  // --color-3: #dfdfdf;
+  // --color-2: #7c7e82;
+  // --def-color: #8a8c8f;
+  // --bg: rgba(0, 0, 0, 0.07);
 
-  --color-3: #dfdfdf;
-
-  // --border: 1px solid #444;
-
-  --border: 1px solid #dfdfdf;
-  --border-2: 1px solid #b9b9b9;
-  --border-3: 1px solid #a2a2a2;
+  // // Configs
+  // --border: 1px solid #dfdfdf;
+  // --border-2: 1px solid #b9b9b9;
+  // --border-3: 1px solid #a2a2a2;
 }
 
 #app {
   width: 100%;
   height: 100%;
   color: var(--def-color);
-  font-size: 14px;
+  font-size: 15px;
   // font-weight: 700;
   font-family: "Nunito";
   font-family: euclid1;
   // background: #0e0e0e;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
+
+  div {
+    display: flex;
+  }
 }
 </style>

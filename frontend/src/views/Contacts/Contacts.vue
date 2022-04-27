@@ -1,22 +1,27 @@
 <template>
-  <div class="home_page">
-    <ContactsNav />
-    <!--  -->
+  <div class="homepage_cover">
+    <div class="home_page">
+      <ContactsNav />
+      <!--  -->
 
-    <div
-      :class="listType === 'grid' ? 'users_container' : 'users_container_list'"
-    >
-      <div class="users_container_inn">
-        <UserCard
-          v-for="(item, index) in allUsers"
-          :key="index"
-          :userData="item"
-          :bio="bios[Math.floor(Math.random() * bios.length)]"
-          :location="locations[Math.floor(Math.random() * locations.length)]"
-          :avatar="avatars[Math.floor(Math.random() * avatars.length)]"
-        />
+      <div
+        :class="
+          listType === 'grid' ? 'users_container' : 'users_container_list'
+        "
+      >
+        <div class="users_container_inn">
+          <UserCard
+            v-for="(item, index) in allUsers"
+            :key="index"
+            :userData="item"
+            :bio="bios[Math.floor(Math.random() * bios.length)]"
+            :location="locations[Math.floor(Math.random() * locations.length)]"
+            :avatar="avatars[Math.floor(Math.random() * avatars.length)]"
+          />
+        </div>
       </div>
     </div>
+    <ContactSideTab />
   </div>
 </template>
 
@@ -25,8 +30,15 @@ import axios from "axios";
 import { useStore } from "vuex";
 import UserCard from "./UserCard.vue";
 import ContactsNav from "./ContactsNav.vue";
+import ContactSideTab from "./ContactSideTab.vue";
 
 export default {
+  props: ["allUsers"],
+  components: {
+    ContactsNav,
+    UserCard,
+    ContactSideTab,
+  },
   setup() {
     const store = useStore();
 
@@ -37,7 +49,6 @@ export default {
 
   data() {
     return {
-      allUsers: [],
       bios: [
         "Senior developer at SuperSpace. I also work as CEO @mean_apparels sometimes.",
         "I love cats so much 😍",
@@ -55,75 +66,53 @@ export default {
       ],
     };
   },
-  components: {
-    ContactsNav,
-    UserCard,
-  },
-
-  methods: {
-    async GetAllUsers() {
-      await axios
-        .get("user/allUsers")
-        .then((res) => {
-          this.allUsers = res?.data?.allusers?.filter(
-            (item) => item.email !== this.store.state.user.email
-          );
-          // .slice(0, 5);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-  },
 
   computed: {
     listType: function () {
       return this.store.state.listType;
     },
   },
-
-  mounted() {
-    this.GetAllUsers();
-    // console.log(this.$route.path);
-  },
 };
 </script>
 
 <style lang="scss" scoped>
-.home_page {
-  height: calc(100% - var(--nav-height));
-  width: 100%;
+.homepage_cover {
   display: flex;
-  overflow: hidden;
-  padding: 0px 30px;
-  flex-direction: column;
+  flex-direction: row;
+  height: calc(100% - var(--nav-height));
 
-  .users_container,
-  .users_container_list {
-    width: 100%;
-    height: calc(100% - var(--nav-height));
+  .home_page {
+    flex: 1;
+    height: 100%;
     display: flex;
-    overflow: scroll;
-    padding-top: 20px;
+    overflow: hidden;
+    padding: 0px 30px;
     flex-direction: column;
 
-    .users_container_inn {
+    .users_container,
+    .users_container_list {
       width: 100%;
+      height: calc(100% - var(--nav-height));
       display: flex;
-      flex-wrap: wrap;
-      flex-direction: row;
-      padding: 0px 5px 50px 0px;
-    }
-  }
-  .users_container_list {
-    padding: 20px 5px 0px;
+      overflow: scroll;
+      padding-top: 20px;
+      flex-direction: column;
 
-    // .users_container_inn {
-    //   height: 100%;
-    //   flex-direction: column;
-    //   align-content: flex-start;
-    //   padding: 0px 5px 30px 0px;
-    // }
+      .users_container_inn {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        padding: 0px 5px 50px 0px;
+      }
+    }
+    .users_container_list {
+      padding: 20px 5px 0px;
+      .users_container_inn {
+        flex-wrap: wrap;
+        flex-direction: row;
+      }
+    }
   }
 }
 </style>

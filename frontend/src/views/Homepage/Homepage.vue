@@ -27,6 +27,8 @@ import UserCard from "./UserCard.vue";
 import HomeNav from "./HomeNav.vue";
 
 export default {
+  props: ["allUsers"],
+
   setup() {
     const store = useStore();
 
@@ -37,7 +39,6 @@ export default {
 
   data() {
     return {
-      allUsers: [],
       bios: [
         "Senior developer at SuperSpace. I also work as CEO @mean_apparels sometimes.",
         "I love cats so much 😍",
@@ -60,31 +61,10 @@ export default {
     UserCard,
   },
 
-  methods: {
-    async GetAllUsers() {
-      await axios
-        .get("user/allUsers")
-        .then((res) => {
-          this.allUsers = res?.data?.allusers?.filter(
-            (item) => item.email !== this.store.state.user.email
-          );
-          // .slice(0, 5);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-  },
-
   computed: {
     listType: function () {
       return this.store.state.listType;
     },
-  },
-
-  mounted() {
-    this.GetAllUsers();
-    // console.log(this.$route.path);
   },
 };
 </script>

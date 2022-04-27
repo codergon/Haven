@@ -37,7 +37,7 @@
                 class="option_icon"
               />
 
-              <BIconPeople v-else class="option_icon option_icon_people" />
+              <i class="ph-users-three option_icon option_icon_people" v-else />
 
               <p>{{ item.option }}</p>
             </div>
@@ -180,7 +180,7 @@ export default {
     width: 100%;
     height: 68px;
     display: flex;
-    color: #444;
+    color: var(--color-2);
     font-size: 16px;
     align-items: center;
     padding: 0px 41px;
@@ -209,6 +209,7 @@ export default {
       font-size: 13px;
       padding: 8px 16px;
       margin-top: 20px;
+      color: var(--color-2);
       letter-spacing: 0.01rem;
       text-transform: uppercase;
     }
@@ -223,17 +224,16 @@ export default {
     a {
       width: 100%;
       display: flex;
-      border-radius: 8px;
+      border-radius: 6px;
       padding: 10px 14px;
       flex-direction: row;
       align-items: center;
       cursor: pointer;
       overflow: hidden;
-      letter-spacing: 0.05em;
-      font-family: machina2;
 
       .li_icon_option {
         flex: 1;
+        font-size: 14px;
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -250,29 +250,37 @@ export default {
         width: 13px;
         height: 15px;
         display: flex;
-        color: #fff;
-        color: #555;
+        color: var(--color-2);
         font-size: 10px;
         font-weight: 800;
-        padding-top: 2px;
         border-radius: 3px;
         align-items: center;
         justify-content: center;
-        border: 1px solid rgba($color: #000000, $alpha: 0.15);
+        background: var(--bg-3);
+        border: var(--border);
       }
     }
+    .side_menu {
+      flex-direction: column;
+    }
 
+    .side_menu {
+      color: var(--color-4);
+    }
+    .side_menu .active_page {
+      color: var(--color-2);
+      background: var(--bg-3);
+    }
     .side_menu a {
       margin-bottom: 10px;
-    }
-
-    .side_menu .active_page {
-      color: #000;
-      background: rgba($color: #000000, $alpha: 0.05);
+      border: 1px solid transparent;
     }
     .side_menu a:hover {
-      color: #555;
-      background: rgba($color: #000000, $alpha: 0.05);
+      border: var(--border);
+    }
+
+    .pinned_messages {
+      flex-direction: column;
     }
 
     .pinned_messages .list_sect_header {
@@ -280,9 +288,11 @@ export default {
     }
     .user_details_li {
       padding: 7px 14px;
+      margin-bottom: 5px;
+      border: 1px solid transparent;
     }
     .user_details_li:hover {
-      background: rgba($color: #000000, $alpha: 0.04);
+      border: var(--border);
     }
     .user_details {
       width: 100%;
@@ -315,7 +325,6 @@ export default {
       flex-direction: column;
     }
     .user_name {
-      color: #000;
       width: 100%;
       color: var(--color-2);
       font-size: 13px;
@@ -343,20 +352,21 @@ export default {
       height: 15px;
       display: flex;
       font-size: 10px;
-      padding-top: 2px;
+      padding: 1px 0px;
       align-items: center;
-      color: #555;
+      color: var(--color-2);
       font-weight: 800;
       margin-top: 3px;
       margin-left: 9px;
       border-radius: 2px;
       justify-content: center;
-      background: rgba($color: #000000, $alpha: 0.1);
+      background: var(--bg-3);
+      border: var(--border);
     }
 
     .chats_hor_line {
-      margin: 15px 14px 15px;
-      border-top: 1px solid rgba($color: #000000, $alpha: 0.07);
+      margin: 10px 12px 15px;
+      border-top: var(--border);
     }
   }
 }

@@ -107,19 +107,17 @@ export default {
 
 <style lang="scss" scoped>
 .dynamicSideTab {
-  width: 340px;
   display: flex;
   position: relative;
   flex-direction: column;
   border-left: var(--border);
+  width: var(--sidebar-right);
 
   .dynamicSideTab_inn {
     width: 100%;
     height: 100%;
     display: flex;
     overflow: hidden;
-    background: #fff;
-    // padding: 20px 25px 20px;
     flex-direction: column;
 
     .starred_msg {
@@ -202,7 +200,7 @@ export default {
       width: 100%;
       display: flex;
       margin-top: 10px;
-      padding: 0px 25px 20px;
+      padding: 0px 22px 20px;
       align-items: center;
       flex-direction: column;
 
@@ -242,7 +240,7 @@ export default {
       width: 100%;
       display: flex;
       margin-top: 12px;
-      padding: 0px 25px 20px;
+      padding: 0px 22px 20px;
       align-items: center;
       flex-direction: column;
 
