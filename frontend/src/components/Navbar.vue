@@ -44,6 +44,9 @@ export default {
     };
   },
   computed: {
+    user: function () {
+      return this.store.getters.user;
+    },
     darkTheme: function () {
       return this.store.state.darkTheme;
     },
