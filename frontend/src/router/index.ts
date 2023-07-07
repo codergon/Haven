@@ -14,7 +14,7 @@ import store from "../store";
 import Login from "@/views/Auth/Login.vue";
 import Register from "@/views/Auth/Register.vue";
 
-const routes: Array<RouteRecordRaw> = !store.getters.user
+const routes: Array<RouteRecordRaw> = store.getters.user
   ? [
       {
         path: "/",

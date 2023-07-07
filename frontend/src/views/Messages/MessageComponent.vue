@@ -109,7 +109,7 @@ export default {
         flex-direction: column;
         width: calc(100% - 60px);
         .message_list_container {
-          padding-bottom: 20px;
+          padding-bottom: 6px;
         }
       }
       .scroll_down_butt {
@@ -141,7 +141,7 @@ export default {
       height: 75px;
       display: flex;
       align-items: center;
-      background: #fff;
+      // background: #fff;
       flex-direction: row;
       justify-content: center;
       border-top: var(--border);

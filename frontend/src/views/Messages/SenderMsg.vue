@@ -62,7 +62,7 @@ export default {
     display: flex;
     font-weight: 600;
     flex-direction: row;
-    border: 1px solid #e5e5e5;
+    border: var(--border-3);
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     border-top-right-radius: 10px;
@@ -87,6 +87,7 @@ export default {
       font-weight: 400;
       padding: 15px 15px 10px;
       overflow-wrap: break-word;
+      color: var(--extreme-inv);
 
       .msg_time {
         color: #999;

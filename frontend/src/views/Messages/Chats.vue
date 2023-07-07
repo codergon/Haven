@@ -75,7 +75,7 @@ export default {
     height: var(--nav-height);
     display: flex;
     align-items: center;
-    background: #fff;
+    // background: #fff;
     flex-direction: row;
     justify-content: center;
     border-bottom: var(--border);
@@ -126,7 +126,7 @@ export default {
           flex-direction: row;
 
           .other_user_name {
-            color: #444;
+            color: var(--color-1);
             font-size: 18px;
             white-space: nowrap;
             font-family: machina2;
@@ -156,7 +156,7 @@ export default {
           position: relative;
           margin: 0px 7px;
           cursor: pointer;
-          color: #666;
+          color: var(--color-5);
           border: var(--border-2);
           justify-content: center;
 
@@ -165,15 +165,15 @@ export default {
             height: 0px;
             position: absolute;
             transform: rotate(30deg);
-            border-top: var(--border-2);
+            border-top: var(--border-3);
           }
         }
 
         .mute_butt {
-          color: #fff;
+          color: var(--extreme);
           display: flex;
           padding: 4px 10px;
-          background: #111;
+          background: var(--bg-1);
           border-radius: 4px;
           margin-left: 20px;
           cursor: pointer;

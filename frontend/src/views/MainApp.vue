@@ -27,7 +27,40 @@ export default {
 
   data() {
     return {
-      allUsers: [],
+      allUsers: [
+        {
+          username: "John Doe",
+          email: "john@gmail.com",
+        },
+        {
+          username: "John Doe",
+          email: "john@gmail.com",
+        },
+        {
+          username: "John Doe",
+          email: "john@gmail.com",
+        },
+        {
+          username: "John Doe",
+          email: "john@gmail.com",
+        },
+        {
+          username: "John Doe",
+          email: "john@gmail.com",
+        },
+        {
+          username: "John Doe",
+          email: "john@gmail.com",
+        },
+        {
+          username: "John Doe",
+          email: "john@gmail.com",
+        },
+        {
+          username: "John Doe",
+          email: "john@gmail.com",
+        },
+      ],
     };
   },
   components: {
@@ -40,13 +73,13 @@ export default {
     async GetAllUsers() {
       await axios
         .get("user/allUsers")
-        .then((res) => {
+        .then(res => {
           this.allUsers = res?.data?.allusers?.filter(
-            (item) => item.email !== this.store.state.user.email
+            item => item.email !== this.store.state.user.email
           );
           // .slice(0, 5);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
@@ -81,10 +114,13 @@ main {
   --extreme: #fff;
   --extreme-inv: #000;
   --bg-actual: #fff;
+  --bg-1: #111;
 
+  --color-5: #666;
   --color-4: #7c7e82;
   --color-3: #dfdfdf;
   --color-2: #484848;
+  --color-1: #444;
   --def-color: #8a8c8f;
   --dark-col: #555;
   --bg: #f1f1f1;
@@ -107,6 +143,7 @@ main {
   flex-direction: row;
   letter-spacing: 0.03em;
   color: var(--color-2);
+  background: var(--bg-actual);
 }
 
 .dark_theme {
@@ -118,11 +155,14 @@ main {
   // Colors
   --extreme: #000;
   --extreme-inv: #fff;
-  --bg-actual: #111;
+  --bg-actual: #181818;
+  --bg-1: #fff;
 
+  --color-5: #ccc;
   --color-4: #888;
   --color-3: #dfdfdf;
   --color-2: #ccc;
+  --color-1: #fff;
   --def-color: #8a8c8f;
   --dark-col: #555;
   --bg: #f1f1f1;
@@ -136,9 +176,7 @@ main {
 
   // Configs
   --border: 1px solid #333;
-  --border-2: 1px solid #b9b9b9;
-  --border-3: 1px solid #a2a2a2;
-
-  background: #080808;
+  --border-2: 1px solid #555;
+  --border-3: 1px solid #666;
 }
 </style>

@@ -139,7 +139,7 @@ export default {
         // border-bottom: var(--border);
 
         p {
-          color: #000;
+          color: var(--extreme-inv);
         }
       }
       .starred_msg_list {
@@ -180,7 +180,7 @@ export default {
             }
             .starred_name {
               height: 24px;
-              color: #000;
+              color: var(--extreme-inv);
               align-items: center;
             }
             .starred_message {
@@ -214,7 +214,7 @@ export default {
         justify-content: space-between;
 
         p {
-          color: #000;
+          color: var(--extreme-inv);
         }
       }
       .shared_list {
@@ -254,7 +254,7 @@ export default {
         justify-content: space-between;
 
         p {
-          color: #000;
+          color: var(--extreme-inv);
         }
       }
 
@@ -273,9 +273,11 @@ export default {
           align-items: center;
           width: calc((100% / 4) - 15px);
           flex-direction: column;
+
+          color: var(--coloor-5);
         }
         .media_nav_li:nth-child(2) {
-          color: #666;
+          color: var(--extreme-inv);
           border-bottom: 2px solid #666;
         }
       }
@@ -318,7 +320,7 @@ export default {
     display: flex;
     cursor: pointer;
     align-items: center;
-    background: #fff;
+    background: var(--bg-actual);
     position: absolute;
     border-radius: 15px;
     border: var(--border);
